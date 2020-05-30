@@ -1,0 +1,37 @@
+version: "3"
+services:
+  reverse-proxy:
+      image: xinbinhuang/ud-reverse-proxy:1.0.0
+      ports:
+          - 8080:8080
+      restart: always
+      depends_on:
+        - backend-api-user
+        - backend-api-feed     
+  backend-api-user:
+    image: xinbinhuang/ud-api-user:1.0.0
+    environment:
+      POSTGRES_USERNAME: $POSTGRES_USERNAME
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD 
+      POSTGRES_DB: $POSTGRES_DB 
+      POSTGRES_HOST: $POSTGRES_HOST
+      JWT_SECRET: $JWT_SECRET
+      URL: $URL
+  backend-api-feed:
+    image: xinbinhuang/ud-api-feed:1.0.0
+    volumes:
+      - $HOME/.aws:/root/.aws
+    environment:
+      POSTGRES_USERNAME: $POSTGRES_USERNAME
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD 
+      POSTGRES_DB: $POSTGRES_DB 
+      POSTGRES_HOST: $POSTGRES_HOST 
+      AWS_REGION: $AWS_REGION 
+      AWS_PROFILE: $AWS_PROFILE 
+      AWS_BUCKET: $AWS_BUCKET
+      JWT_SECRET: $JWT_SECRET
+      URL: $URL
+  frontend:
+    image: xinbinhuang/ud-frontend:1.0.0
+    ports:
+      - "$PORT:80"
