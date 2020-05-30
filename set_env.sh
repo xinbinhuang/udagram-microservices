@@ -10,4 +10,5 @@ export AWS_BUCKET
 export AWS_REGION
 export AWS_PROFILE
 export JWT_SECRET
-export URL=http://localhost:8100
+export PORT
+export URL
