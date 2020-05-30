@@ -28,6 +28,13 @@ resource "aws_s3_bucket" "udagram" {
     expose_headers  = []
     max_age_seconds = 0
   }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
 }
 
 resource "aws_db_instance" "udagram" {
