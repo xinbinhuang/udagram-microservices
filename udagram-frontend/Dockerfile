@@ -1,4 +1,5 @@
-FROM beevelop/ionic AS ionic
+FROM node:12 AS builder
+RUN npm install --unsafe-perm -g @ionic/cli native-run cordova-res 
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci
@@ -6,4 +7,4 @@ COPY . .
 RUN ionic build
 
 FROM nginx:alpine
-COPY --from=ionic  /usr/src/app/www /usr/share/nginx/html
+COPY --from=builder  /usr/src/app/www /usr/share/nginx/html
