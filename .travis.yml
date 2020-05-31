@@ -2,7 +2,7 @@ language: minimal
 services: docker
 env:
   matrix:
-  - DOCKER_COMPOSE_VERSION=1.4.2
+  - DOCKER_COMPOSE_VERSION=1.25.3
   global:
   - secure: hFtEcH2d/pPWkRcK8W+W5wEbMLhzITbxb9eft/0xhJdAMmBc84bZ+D4qpKMlEfehSd4zADJs3+BIbi+VHbaQqraXXRmY6AmKVp4192WLAIyWJjB6F9b4RKi8lQUJSDEQgH8njHVTsLMj+n0rBrH+e/SvXh8e0VsPBF0M6HyKJh3pbg7QENtzpKGbwdJZ0PQJt8wVmFIEVESUqj/oVy+xlBPnVj/3u5Cm/rMQqr1kuSJt9uaYg5BmP/qvBVkUxbNa6/tbVPz2W3rs2vw4Wt0BzxeBAa6hIiGexdblKh0Q1DQ6XqG8RxYPRmm5j0ELcKBDRGMFYwZYW2rrHQcHrClzffyde8qGQXZK/3sMUVcK5rd/mgtgC24Of0t7wGy65W995JjsWZ3ybW8PupDRxyKGifoZyv4C61XW1XIoY+N3QaCoNDb0VXEdOq14fIIPFB3HnscHgVmigPtNhs4tOf1ttb3uJ55hWMJL91OZGUmRhgjkpLlBHa0Nx8W+4fX8yuMNU2rhwk2iVjMfkMf5HkDUJ5l3hT8fzsEWmQzDG02gU1KHD4XWfZxncFIeww3sC0X4M2nq14og44D00zGj2TD9/C9MzXKTvyJGaKHlc7glNAUjk6DB2AYBy1wLzV+n6IXe8mlF9BECVMCtyj5+JlZKW1TeMP1D+FuRX+0NIwOyw3M=
   - secure: XRfEOYjWejqkIiNBhVCWtZhPizEg77FCAurMbnoh1YP3ft0lg9DJCuI2rCCDvZvnEoi/keE3IEayVIhMFQBVJefxwX+3FMGsY253WC27EI8oRkCse0em46tLs6wIk14bty2o2E1xp1TPWNFemMWEZrFOMFcMHPG8n700AYgA0KUQe8y0vOERs8wJZVENmt3nsafPRQu7j7lu2eGCyCGqa5QOXRjhgPYgXockEureQOlGdD5NPDVMJfL4SO5YiDIxdRTGdZ6ttQN4yQeKb0+IWWSNEmIq5srRUAz4dIdQYFQWAlKzpgdAghkoieYtn7HsIVIOK9M2hrwwKFxy/6PZRis5Prz4fmPaPQoVvYVar3I+yNdJZ12oKzAN9zYlyg7iA1q54m6riXLsubyB2cM83x7RtEGSPL6XS/6lnVt818E/gvK+tp77iQFYZ9r6QWQysWhlswZqCygNqq3oKRZB0Lm0XYYCBDbq2OlscdsxG2Jw9g5EXyNySZ2gp+sStCBxf1NwQxQOG2FqGydRdHv4W5Db2lD0pYchb8A0Gv/GsOUoOq+2lEd1Bze3SIIQRKzqMYzk9Wa+eZWJintIVorMLl1Vp3FrCK78BHyG/9k8hCFEAUM5jEvCODKP8IqsYlFBOCKjF51OFrHQhS0kXQgyrorCfN9ul9Gue/dN9vqamk0=
@@ -13,7 +13,7 @@ before_install:
 - chmod +x docker-compose
 - sudo mv docker-compose /usr/local/bin
 install:
-- docker-compose -f docker-compose-build.yaml build
+- docker-compose -f docker-compose-build.yaml build --parallel
 before_deploy:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 deploy:
