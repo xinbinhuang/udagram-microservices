@@ -1,9 +1,9 @@
 version: "3"
 services:
-  reverse-proxy:
+  api-proxy:
     build:
-      context: ./reverse-proxy
-    image: xinbinhuang/ud-reverse-proxy:1.0.0
+      context: ./api-proxy
+    image: xinbinhuang/ud-api-proxy:1.0.0
   frontend:
     build:
       context: ./udagram-frontend

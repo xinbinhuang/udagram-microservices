@@ -1,7 +1,7 @@
 version: "3"
 services:
-  reverse-proxy:
-      image: xinbinhuang/ud-reverse-proxy:1.0.0
+  api-proxy:
+      image: xinbinhuang/ud-api-proxy:1.0.0
       ports:
           - 8080:8080
       restart: always
