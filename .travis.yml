@@ -1,5 +1,5 @@
 language: minimal
-service: docker
+services: docker
 env:
   matrix:
   - DOCKER_COMPOSE_VERSION=1.4.2
