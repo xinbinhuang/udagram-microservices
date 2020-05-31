@@ -37,6 +37,12 @@ resource "aws_s3_bucket" "udagram" {
   }
 }
 
+resource "aws_db_subnet_group" "udagram" {
+  name_prefix = local.udagram_id_prefix
+  description = "Backend DB for Udagram"
+  subnet_ids  = var.db_subnet_ids
+}
+
 resource "aws_db_instance" "udagram" {
   identifier_prefix                     = local.udagram_id_prefix
   allocated_storage                     = 20
@@ -54,45 +60,34 @@ resource "aws_db_instance" "udagram" {
   performance_insights_enabled          = true
   performance_insights_retention_period = 7
   skip_final_snapshot                   = var.db_skip_final_snapshot
+  db_subnet_group_name                  = aws_db_subnet_group.udagram.name
   vpc_security_group_ids = [
-    aws_default_security_group.default.id
+    aws_security_group.udagram_db.id
+  ]
+
+  depends_on = [
+    aws_security_group.udagram_db
   ]
 }
 
-resource "aws_default_security_group" "default" {
-  revoke_rules_on_delete = false
-  egress = [
-    {
-      cidr_blocks = [
-        "0.0.0.0/0",
-      ]
-      description = ""
-      from_port   = 0
-      ipv6_cidr_blocks = [
-        "::/0",
-      ]
-      prefix_list_ids = []
-      protocol        = "-1"
-      security_groups = []
-      self            = false
-      to_port         = 0
-    },
-  ]
-  ingress = [
-    {
-      cidr_blocks = [
-        "0.0.0.0/0",
-      ]
-      description = ""
-      from_port   = 0
-      ipv6_cidr_blocks = [
-        "::/0",
-      ]
-      prefix_list_ids = []
-      protocol        = "-1"
-      security_groups = []
-      self            = false
-      to_port         = 0
-    },
-  ]
+resource "aws_security_group" "udagram_db" {
+  name_prefix = "rds-access-"
+  description = "Udagram RDS Access Security Group"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
 }
