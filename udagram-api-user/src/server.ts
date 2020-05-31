@@ -5,7 +5,6 @@ import { sequelize } from './sequelize';
 import { IndexRouter } from './controllers/v0/index.router';
 
 import bodyParser from 'body-parser';
-import { config } from './config/config';
 import { V0_USER_MODELS } from './controllers/v0/model.index';
 
 
@@ -24,7 +23,8 @@ import { V0_USER_MODELS } from './controllers/v0/model.index';
       'Content-Type', 'Accept',
       'X-Access-Token', 'Authorization',
     ],
-    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE'
+    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+    origin: "*"
   }));
 
   app.use('/api/v0/', IndexRouter);
@@ -37,7 +37,7 @@ import { V0_USER_MODELS } from './controllers/v0/model.index';
 
   // Start the Server
   app.listen(port, () => {
-    console.log(`server running ${config.url}`);
+    console.log(`server running port ${port}`);
     console.log(`press CTRL+C to stop server`);
   });
 })();
