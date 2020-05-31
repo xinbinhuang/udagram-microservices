@@ -16,7 +16,6 @@ services:
       POSTGRES_DB: $POSTGRES_DB 
       POSTGRES_HOST: $POSTGRES_HOST
       JWT_SECRET: $JWT_SECRET
-      URL: $URL
   backend-api-feed:
     image: xinbinhuang/ud-api-feed:1.0.0
     volumes:
@@ -30,8 +29,7 @@ services:
       AWS_PROFILE: $AWS_PROFILE 
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
-      URL: $URL
   frontend:
     image: xinbinhuang/ud-frontend:1.0.0
     ports:
-      - "$PORT:80"
+      - "8100:80"

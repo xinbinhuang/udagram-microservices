@@ -10,5 +10,3 @@ export AWS_BUCKET
 export AWS_REGION
 export AWS_PROFILE
 export JWT_SECRET
-export PORT
-export URL
