@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-proxy
+  labels:
+    service: api-proxy
+spec:
+  selector:
+    matchLabels:
+      service: api-proxy
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        service: api-proxy
+    spec:
+      containers:
+        - name: api-proxy
+          image: xinbinhuang/ud-api-proxy:1.0.0
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always

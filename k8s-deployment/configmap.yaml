@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config
+data:
+  AWS_BUCKET: udagram-dev-20200531055143097500000003
+  AWS_PROFILE: default
+  AWS_REGION: us-west-2
+  JWT_SECRET: koalatreehouse
+  POSTGRES_DB: udagram
+  POSTGRES_HOST: udagram-dev-20200531055144791400000004.cbdimqvuocth.us-west-2.rds.amazonaws.com
